@@ -1,0 +1,21 @@
+t <form>
+t <text>
+c i 1 <id>mode_id</id><value>%d</value>
+t </text>
+t <text>
+c i 2 <id>light_red_id</id><value>%d</value>
+t </text>
+t <text>
+c i 3 <id>light_yellow_id</id><value>%d</value>
+t </text>
+t <text>
+c i 4 <id>light_green_id</id><value>%d</value>
+t </text>
+t <text>
+c i 5 <id>sensor_val_id</id><value>%d</value>
+t </text>
+t <text>
+c i 6 <id>fault_info_id</id><value>%s</value>
+t </text>
+t </form>
+.

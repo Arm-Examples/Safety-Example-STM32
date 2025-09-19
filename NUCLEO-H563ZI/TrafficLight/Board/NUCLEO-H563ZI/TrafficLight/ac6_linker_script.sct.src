@@ -1,0 +1,82 @@
+/*
+ * Copyright (c) 2023-2025 Arm Limited. All rights reserved.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+; Vendor:    STMicroelectronics
+; Device:    STM32H563ZIT6
+; Processor: Cortex-M33
+; Project:   TrafficLight
+
+/*----------------------------------------------------------------------------
+  Scatter File Definitions
+ *----------------------------------------------------------------------------*/
+
+LR_FLASH REGION_FLASH_START REGION_FLASH_SIZE {
+  ER_FLASH REGION_FLASH_START REGION_FLASH_SIZE {
+    *.o (RESET, +First)
+    * (InRoot$$Sections)
+    .ANY (+RO, +XO)
+  }
+  RAM_PRIVILEGED REGION_RAM_PRIVILEGED_START REGION_RAM_PRIVILEGED_SIZE {
+    Net_Config.o (.bss.os.*.cb)
+    * (.data.os*)
+    * (.bss.os*)
+  }
+  RAM_COM REGION_RAM_COM_START REGION_RAM_COM_SIZE {
+    Communication.o (+RW +ZI)
+    net_*.o (+RW +ZI)
+    eth_mac_stm32.o (+RW +ZI)
+    phy_lan8742a.o (+RW +ZI)
+    main.o (.bss.TxConfig)
+    main.o (.bss.DMARxDscrTab)
+    main.o (.bss.DMATxDscrTab)
+    main.o (.bss.heth)
+    main.o (.bss.MX_ETH_Init.MACAddr)
+  }
+  RAM_SHARED REGION_RAM_SHARED_START REGION_RAM_SHARED_SIZE {
+    * (ram_shared)
+    system_stm32h5xx.o (+RW +ZI)
+    stm32h5xx_hal.o (+RW +ZI)
+    * (.bss.gpio0_rw_info)
+    libspace.o (+RW +ZI)
+    vio_NUCLEO-H563ZI.o (+RW +ZI)
+    startup_stm32h563xx.o (HEAP)        // Heap size is 0, thus is just to avoid linker error
+  }
+  RAM_EVR REGION_RAM_NO_INIT_EVR_START UNINIT REGION_RAM_NO_INIT_EVR_SIZE {
+    EventRecorder.o (+ZI)
+  }
+  RAM_NORMAL_OP REGION_RAM_NORMAL_OP_START REGION_RAM_NORMAL_OP_SIZE {
+    NormalOperation.o (+RW +ZI)
+  }
+  RAM_VERIFY_OP REGION_RAM_VERIFY_OP_START REGION_RAM_VERIFY_OP_SIZE {
+    OperationVerification.o (+RW +ZI)
+  }
+  RAM_SAFE_OP REGION_RAM_SAFE_OP_START REGION_RAM_SAFE_OP_SIZE {
+    SafeModeOperation.o (+RW +ZI)
+    main.o (.bss.hiwdg)
+  }
+  RAM_TIMER REGION_RAM_TIMER_START REGION_RAM_TIMER_SIZE {
+    rtx_lib.o (.bss.os.thread.timer.stack)
+  }
+  RAM_IDLE REGION_RAM_IDLE_START REGION_RAM_IDLE_SIZE {
+    * (ram_idle)
+    rtx_lib.o (.bss.os.thread.idle.stack)
+  }
+  RAM_ARM_LIB_STACK REGION_ARM_LIB_STACK_START {
+    startup_stm32h563xx.o (STACK)
+  }
+}

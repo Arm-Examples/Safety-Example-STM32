@@ -1,0 +1,55 @@
+layer:
+  type: Board
+  description: Traffic Light NUCLEO-H563ZI board setup
+  for-board: STMicroelectronics::NUCLEO-H563ZI
+  processor:
+    trustzone: off
+
+  generators:
+    options:
+      - generator: CubeMX
+        path: ./CubeMX
+        name: Board
+
+  connections:
+    - connect: NUCLEO-H563ZI Board
+      provides:
+        - CMSIS_ETH
+        - CMSIS_VIO
+        - Heap: 0
+
+  define:
+    - CMSIS_target_header: \"NUCLEO-H563ZI.h\"
+
+  packs:
+    - pack: Keil::STM32H5xx_DFP@2.1.0
+    - pack: Keil::NUCLEO-H563ZI_BSP@1.1.0
+    - pack: ARM::CMSIS-Driver_STM32@1.3.0
+    - pack: ARM::CMSIS-Driver@2.10.0
+    - pack: ARM::CMSIS@6.2.0
+
+  components:
+    - component: Device:CubeMX
+
+    - component: CMSIS:CORE
+
+    - component: CMSIS Driver:Ethernet MAC
+    - component: CMSIS Driver:Ethernet PHY:LAN8742A
+    - component: CMSIS Driver:GPIO
+    - component: CMSIS Driver:VIO:Board
+
+  groups:
+    - group: Board
+      files:
+        - file: README.md
+        - file: NUCLEO-H563ZI.h
+    - group: Traffic Light
+      files:
+        - file: TrafficLight/io_defs.h
+        - file: TrafficLight/hw_watchdog.c
+        - file: TrafficLight/zones.c
+
+  linker:
+    - script:  TrafficLight/ac6_linker_script.sct.src
+      regions: TrafficLight/mem_layout.h
+      for-compiler: AC6
