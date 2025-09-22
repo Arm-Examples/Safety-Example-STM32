@@ -26,7 +26,6 @@
 #include "RTE_Components.h"
 #include CMSIS_device_header
 #include "cmsis_os2.h"
-#include "Communication.h"
 
 extern int app_main (void);
 
@@ -136,16 +135,6 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
   SystemCoreClockUpdate();
-
-  if (__HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST) != RESET) {
-    /* If system start was caused by a software reset */
-    DisplaySetFaultInfo("The system was reset by the software (due to Fatal Error) \r\n\r\n");
-  } else if (__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST) != RESET) {
-    /* If system start was caused by a hardware watchdog reset */
-    DisplaySetFaultInfo("The system was reset by a hardware watchdog \r\n\r\n");
-  }
-
-  __HAL_RCC_CLEAR_RESET_FLAGS();
 
   /* USER CODE END SysInit */
 

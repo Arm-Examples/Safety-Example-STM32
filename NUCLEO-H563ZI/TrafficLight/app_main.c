@@ -25,6 +25,7 @@
 #include "faults.h"
 
 #include "cmsis_vio.h"
+#include "reset_reason.h"
 #include "hw_watchdog.h"
 
 #include "NormalOperation.h"
@@ -38,12 +39,20 @@
 */
 int app_main (void) {
 
-  SystemCoreClockUpdate();
-
   /* Turn on red light until normal operation starts */
   vioSetSignal(LIGHT_RED,    vioLEDon);
   vioSetSignal(LIGHT_YELLOW, vioLEDoff);
   vioSetSignal(LIGHT_GREEN,  vioLEDoff);
+
+  // Check if the chip was reset and what was the reason
+  uint32_t reset_reason = GetResetReason();
+  if ((reset_reason & RESET_REASON_SOFTWARE) != 0U) {
+    /* If system start was caused by a software reset */
+    DisplaySetFaultInfo("The system was reset by the software (due to Fatal Error) \r\n\r\n");
+  } else if ((reset_reason & RESET_REASON_HARDWARE) != 0U) {
+    /* If system start was caused by a hardware watchdog reset */
+    DisplaySetFaultInfo("The system was reset by a hardware watchdog \r\n\r\n");
+  }
 
 #ifndef DISABLE_HW_WATCHDOG
   /* Initialize and start hw watchdog with 1 second timeout */

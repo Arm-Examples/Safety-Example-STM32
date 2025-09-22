@@ -43,10 +43,11 @@ layer:
       files:
         - file: README.md
         - file: NUCLEO-H563ZI.h
-    - group: Traffic Light
+    - group: Board Traffic Light
       files:
         - file: TrafficLight/io_defs.h
         - file: TrafficLight/hw_watchdog.c
+        - file: TrafficLight/reset_reason.c
         - file: TrafficLight/zones.c
 
   linker:

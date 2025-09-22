@@ -40,40 +40,41 @@ The application is organized into safety classes and zones:
 - **Safety Class 3**
   - *Zone 5*: RTOS Idle thread
 
-
 ## Project Structure
 
 ### Documentation
-- `README.md` – Project documentation (this file)
+- `README.md` : Project documentation (this file)
 
 ### System
-- `app_main.c` – Application main function
-- `faults.c` – Fault handling implementation
-- `faults.h` – Fault handling function prototypes (API)
-- `hw_watchdog.h` – Hardware watchdog function prototypes (API)
-- `system_defs.h` – System definitions (safety classes, lights, button)
-- `zones.h` – Zone definitions and function prototypes (API)
+- `app_main.c` : Application main function
+- `faults.c` : Fault handling implementation
+- `faults.h` : Fault handling function prototypes (API)
+- `hw_watchdog.h` : Hardware watchdog function prototypes (API)
+- `reset_reason.h` : Reset reason definitions and function prototype (API)
+- `system_defs.h` : System definitions (safety classes, lights, button)
+- `zones.h` : Zone definitions and function prototypes (API)
 
 ### Safety Class 0 (Normal)
-- `NormalOperation.c` – Implements the traffic light logic. The green light duration depends on the traffic sensor, simulated by the value changed by **USER button**.
-- `OperationVerification.c` – Continuously verifies Normal Operation. If input data is invalid or missing, Safe-Mode is activated.
+- `NormalOperation.c` : Implements the traffic light logic. The green light duration depends on the traffic sensor, simulated by the value changed by **USER button**.
+- `OperationVerification.c` : Continuously verifies Normal Operation. If input data is invalid or missing, Safe-Mode is activated.
 
 ### Safety Class 1 (Communication)
-- `Communication.c` – Communication stack (HTTP Server) startup
-- `HTTP_Server_CGI.c` – Web callbacks providing system status and fault injection
-- `index.cgi` – Main Web landing page
-- `refresh.cgx` – Dynamic Web page system status updates
-- *Other files* – Other Web page source files
+- `Communication.c` : Communication stack (HTTP Server) startup
+- `HTTP_Server_CGI.c` : Web callbacks providing system status and fault injection
+- `index.cgi` : Main Web landing page
+- `refresh.cgx` : Dynamic Web page system status updates
+- *Other files* : Other Web page source files
 
 ### Safety Class 3 (Safety)
-- `SafeModeOperation.c` – Implements Safe-Mode (yellow light blinking)
+- `SafeModeOperation.c` : Implements Safe-Mode (yellow light blinking)
 
 ### Board Layer
 Contains board-specific code.
 
 Traffic Light application and board-specific code is located in the `TrafficLight` subfolder:
-- `ac6_linker_script.sct.src` – Linker script for AC6
-- "io_defs.h" - Header file definig lights and sensor mapping on a board
-- `hw_watchdog.c` – Hardware watchdog handling
-- `mem_layout.h` – Memory layout
-- `zones.c` – Zone management functions
+- `ac6_linker_script.sct.src` : Linker script for AC6
+- `io_defs.h` : Header file defining lights and sensor mapping on a board
+- `hw_watchdog.c` : Hardware watchdog handling
+- `mem_layout.h` : Memory layout
+- `reset_reason.c` : Get reset reason function
+- `zones.c` : Zone management functions
