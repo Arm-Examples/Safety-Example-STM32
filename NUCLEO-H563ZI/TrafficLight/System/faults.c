@@ -164,7 +164,6 @@ uint32_t osWatchdogAlarm_Handler (osThreadId_t thread_id) {
   uint32_t safety_class;
   uint32_t next_interval;
 
-
   if (thread_id == NULL) {
     /* Thread id should never be NULL, so it is a fatal error */
     FatalError_Handler();

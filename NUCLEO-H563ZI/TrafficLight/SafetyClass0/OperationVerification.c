@@ -55,7 +55,7 @@ static __NO_RETURN void OperationVerificationThread (void *argument) {
   for (;;) {
     (void)osThreadFeedWatchdog(100U);   /* Timeout for software watchdog is 100 ms */
 
-    sensor_val = SensorGetData(50U);    /* Get sensor value from message queue with 50 ms timeout */
+    sensor_val = SensorGetData(80U);    /* Get sensor value from message queue with 80 ms timeout */
     if (sensor_val > 4000U) {
       /* If input data is not plausible (larger than 4000 or timed-out) 
          then call NormalOperationError_Handler function located in faults.c module. */ 

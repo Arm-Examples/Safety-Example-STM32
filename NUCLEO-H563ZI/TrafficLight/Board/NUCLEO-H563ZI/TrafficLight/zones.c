@@ -52,7 +52,7 @@ void ZonesInitialize (void) {
   /* Memory attributes for Peripherals (index 2) = Device memory: nG (non-Gathering), nR (non-Reordering), nE (no Early Write Acknowledgment) */
   ARM_MPU_SetMemAttr(2UL, ARM_MPU_ATTR(ARM_MPU_ATTR_DEVICE, ARM_MPU_ATTR_DEVICE_nGnRnE));
 
-  /* Enable Privileged Default */
+  /* Enable privileged default access */
   ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
 }
 

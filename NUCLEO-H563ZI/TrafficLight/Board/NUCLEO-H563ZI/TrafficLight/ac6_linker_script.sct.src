@@ -54,7 +54,7 @@ LR_FLASH REGION_FLASH_START REGION_FLASH_SIZE {
     * (.bss.gpio0_rw_info)
     libspace.o (+RW +ZI)
     vio_NUCLEO-H563ZI.o (+RW +ZI)
-    startup_stm32h563xx.o (HEAP)        // Heap size is 0, thus is just to avoid linker error
+    startup_stm32h563xx.o (HEAP)        // Heap size is 0, thus this is just to avoid linker error
   }
   RAM_EVR REGION_RAM_NO_INIT_EVR_START UNINIT REGION_RAM_NO_INIT_EVR_SIZE {
     EventRecorder.o (+ZI)
