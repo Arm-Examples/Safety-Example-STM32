@@ -23,14 +23,14 @@ features as the commercial, safety-certified
 [FuSa RTS](https://developer.arm.com/Tools%20and%20Software/Keil%20MDK/FuSa%20Run-Time%20System). FuSa RTS is part of
 the [Keil MDK Professional edition](https://www.keil.arm.com/keil-mdk/#mdk-v6-editions).
 
-### NUCLEO-H563ZI/TrafficLight
+### App
 
 This is a practical demonstration of Arm FuSa RTS process isolation, using a simple traffic light controller to
 showcase safety classes, MPU zones, and fault handling on Cortex-M devices.
 
-The [TrafficLight.csolution.yml](./NUCLEO-H563ZI/TrafficLight/TrafficLight.csolution.yml) safety example contains:
+The [TrafficLight.csolution.yml](./App/TrafficLight.csolution.yml) safety example contains:
 
-- [NUCLEO-H563ZI/TrafficLight/TrafficLight.cproject.yml](./NUCLEO-H563ZI/TrafficLight/TrafficLight.cproject.yml)
+- [App/TrafficLight.cproject.yml](./App/TrafficLight.cproject.yml)
   implements the safety-critical application part using functional safety features of Keil RTX.
 
 ![Safety Example](./images/traffic_light.png "Safety Example")
@@ -49,7 +49,7 @@ This is a list of the relevant files and directories.
 File/Directory                            | Content
 :-----------------------------------------|:---------------------------------------------------------
 [vcpkg-configuration.json](./vcpkg-configuration.json) | Defines the tools that the [Arm Tools Environment Manager](https://marketplace.visualstudio.com/items?itemName=Arm.environment-manager) installs in VS Code.
-[NUCLEO-H563ZI/TrafficLight](./NUCLEO-H563ZI/TrafficLight) | Contains the safety example.
+[App](./App) | Contains the safety example.
 [.github/workflows](./.github/workflows)  | Contains setup for the CI Build and HiL test workflows.
 
 ## Issues or Questions

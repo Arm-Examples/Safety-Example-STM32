@@ -1,0 +1,7 @@
+{
+    "debug.hideSlowPreLaunchWarning": true,
+    "debug.showInStatusBar": "never",
+    "clangd.arguments": [
+        "--compile-commands-dir=/Users/chrsei01/02_Git/Arm-Examples/Safety-Examples-STM32/App/out/TrafficLight/NUCLEO_H563ZI/Debug"
+    ]
+}
