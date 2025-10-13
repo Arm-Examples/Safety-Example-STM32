@@ -33,7 +33,7 @@ The [TrafficLight.csolution.yml](./App/TrafficLight.csolution.yml) safety exampl
 - [App/TrafficLight.cproject.yml](./App/TrafficLight.cproject.yml)
   implements the safety-critical application part using functional safety features of Keil RTX.
 
-![Safety Example](./images/traffic_light.png "Safety Example")
+![Safety Example](./Doc/traffic_light.png "Safety Example")
 
 ## Git Workflow
 

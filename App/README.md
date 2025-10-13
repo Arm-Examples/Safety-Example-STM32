@@ -28,6 +28,7 @@ All fault handling is implemented in **`fault.c`** module.
 The system status can be monitored through the hosted Web page, which also allows injecting faults for testing recovery mechanisms.
 
 ## Safety Classes & Zones
+
 The application is organized into safety classes and zones:
 
 - **Safety Class 0**
