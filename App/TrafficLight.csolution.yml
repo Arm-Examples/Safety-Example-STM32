@@ -24,6 +24,17 @@ solution:
       board: NUCLEO-H563ZI:Rev.C
       variables:
         - Board-Layer: $SolutionDir()$/Board/NUCLEO-H563ZI/Board.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: TrafficLight.Debug
+          debugger:
+            name: ST-Link
+        - set: Release
+          images:
+            - project-context: TrafficLight.Release
+          debugger:
+            name: ST-Link
 
   # List of different build configurations.
   build-types:
