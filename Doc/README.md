@@ -72,7 +72,7 @@ Run the following command to build vcpkg itself:
 sudo .vcpkg/bootstrap-vcpkg.sh
 ```
 
-> [NOTE!]
+> [!NOTE]
 > If `node` is not installed on your machine, it will be downloaded automatically.
 
 Export the path to `vcpkg` to your `$PATH` environment variable:
@@ -123,7 +123,7 @@ cpackget add -a -F Keil::STM32H5xx_DFP@2.1.0
 cpackget add -a -F Keil::NUCLEO-H563ZI_BSP@1.1.0
 ```
 
-> [NOTE!]
+> [!NOTE]
 > Run this command again if the pack versions change.
 
 ## Install the self-hosted runner
