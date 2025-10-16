@@ -73,11 +73,10 @@ mkdir .vcpkg
 tar xf vcpkg.tar.gz --strip-components=1 -C .vcpkg
 ```
 
-Run the following command to build vcpkg itself:
+Execute the bootstrap script:
 
 ```sh
-cd .vcpkg/
-./bootstrap-vcpkg.sh
+.vcpkg/bootstrap-vcpkg.sh
 ```
 
 Configure the `VCPKG_ROOT` environment variable:
@@ -94,7 +93,6 @@ export PATH=$VCPKG_ROOT:$PATH
 The tar.gz file is no longer needed, remove it:
 
 ```sh
-cd ..
 rm -rf vcpkg.tar.gz
 ```
 
