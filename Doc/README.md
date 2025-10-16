@@ -1,12 +1,11 @@
-# Self-Hosted Runner for Execution Test
+# Self-hosted runner for execution test
 
 The CMSIS-Toolbox implements and
 [Run and Debug Configuration](https://open-cmsis-pack.github.io/cmsis-toolbox/build-overview/#run-and-debug-configuration)
-for command line usage with pyOCD. pyOCD is a debug connector used in [Keil Studio] that offers also command-line
-operation for Continuous Integration (CI).
+for command line usage with pyOCD.
 
-This section explains how to setup a Linux box that runs a GitHub self-hosted runner for programming and execution of
-an application. The [build workflow](../.github/workflows/Build_NUCLEO_H563ZI_Release.yaml) is executed on a GitHub
+This section explains how to setup a Linux machine that runs a GitHub self-hosted runner for programming and execution
+of an application. The [build workflow](../.github/workflows/Build_NUCLEO_H563ZI_Release.yaml) is executed on a GitHub
 hosted runner that stores the build output as an artifact.
 
 ![CI and HiL Test](CI_HIL.png "CI and HiL Test")
@@ -14,12 +13,14 @@ hosted runner that stores the build output as an artifact.
 ## Prepare a self-hosted runner
 
 These installation instructions are written for a Raspberry Pi (mode 3/4/5) running an Arm64 Ubuntu server edition.
-They have been tested on [Ubuntu Server 24.0.3 LTS](https://ubuntu.com/download/server). For other Linux OS, please
-adapt the steps.
+
+> [!NOTE]
+> This has been tested on [Ubuntu Server 24.0.3 LTS](https://ubuntu.com/download/server). For other Linux OS, please
+> adapt the steps.
 
 ## Prerequisites
 
-The following commands need to be run to have all the required software installed on the local machine.
+Update you local machine with the latest changes.
 
 ```sh
 # Make sure your system is up-to-date
@@ -29,7 +30,12 @@ sudo apt update && sudo apt upgrade
 sudo apt install net-tools zip unzip
 ```
 
-## Install pyOCD
+## pyOCD
+
+pyOCD is a debug connector used in [Keil Studio](https://mdk-packs.github.io/vscode-cmsis-solution-docs/index.html)
+that offers also command-line operation for Continuous Integration (CI).
+
+### Install pyOCD
 
 > [!NOTE]
 > Ubuntu Server 24.0.3 already comes with Python 3.12.x which is used in the following to describe the set up of
@@ -51,46 +57,51 @@ pip3 install pyocd
 vcpkg is a free C/C++ package manager for acquiring and managing libraries and is used in the CMSIS solution workflow
 to download additional tools.
 
-### Installation
+### Install vcpkg
 
-Download `vcpkg` from the GitHub repository:
+Download the latest `vcpkg` release from the GitHub repository:
 
 ```sh
-wget -qO vcpkg.tar.gz https://github.com/microsoft/vcpkg/archive/master.tar.gz
+VCPKG=$(curl -s https://api.github.com/repos/microsoft/vcpkg/releases/latest | jq -r '.tarball_url')
+curl -o vcpkg.tar.gz -L $VCPKG.tar.gz
 ```
 
 Create a new directory to store `vcpkg` and extract the tar.gz file to it:
 
 ```sh
-sudo mkdir .vcpkg
-sudo tar xf vcpkg.tar.gz --strip-components=1 -C .vcpkg
+mkdir .vcpkg
+tar xf vcpkg.tar.gz --strip-components=1 -C .vcpkg
 ```
 
 Run the following command to build vcpkg itself:
 
 ```sh
-sudo .vcpkg/bootstrap-vcpkg.sh
+cd .vcpkg/
+./bootstrap-vcpkg.sh
+```
+
+Configure the `VCPKG_ROOT` environment variable:
+
+```sh
+export VCPKG_ROOT=/path/to/vcpkg
+export PATH=$VCPKG_ROOT:$PATH
 ```
 
 > [!NOTE]
-> If `node` is not installed on your machine, it will be downloaded automatically.
-
-Export the path to `vcpkg` to your `$PATH` environment variable:
-
-```sh
-export PATH=/home/user/.vcpkg:$PATH
-```
-
-Now, `vcpkg` can be used. Check `vcpkg` version with command:
-
-```sh
-vcpkg version
-```
+> Setting environment variables using the export command only affects the current shell session. To make this change
+> permanent across sessions, add the export command to your shell's profile script (e.g., `~/.bashrc`).
 
 The tar.gz file is no longer needed, remove it:
 
 ```sh
+cd ..
 rm -rf vcpkg.tar.gz
+```
+
+Check if the installation was successful:
+
+```sh
+vcpkg version
 ```
 
 ### Activation
@@ -101,19 +112,29 @@ Download the `vcpkg-configuration.json` file that contains the CMSIS-Toolbox:
 curl -o vcpkg-configuration.json -L https://raw.githubusercontent.com/Arm-Examples/Safety-Example-STM32/refs/heads/main/vcpkg-run-configuration.json
 ```
 
-Then, update the registry
+Then, update the registry:
 
 ```sh
 vcpkg x-update-registry --all
 ```
 
-Finally, activate vcpkg:
+Finally, activate `vcpkg`:
 
 ```sh
-vcpkg-shell activate --json=vcpkg-configuration.json
+vcpkg activate --json=env.json
 ```
 
-## Install the required CMSIS-Packs
+> [!NOTE]
+> If `node` is not installed on your machine, it will be downloaded automatically.
+
+Get the path to the CMSIS-Toolbox from the generated `env.json` file"
+
+```sh
+CMSIS_TOOLBOX=$(jq '.paths.PATH[]' env.json | tr -d '\"')
+export PATH=$CMSIS_TOOLBOX:$PATH
+```
+
+## Install CMSIS-Packs
 
 Now, you have access to the CMSIS-Toolbox which also contains the `cpackget` tool which is used to download CMSIS-Packs
 from the web. For this example, we need the device family and board support packs from Infineon.
@@ -130,35 +151,16 @@ cpackget add -a -F Keil::NUCLEO-H563ZI_BSP@1.1.0
 
 ### Download and extract the runner
 
-In GitHub → repo or org → Settings → Actions → Runners → New self-hosted runner → Linux → ARM/ARM64. You’ll see a
-download link and a registration token. On the Pi:
+In your GitHub repository, go to Settings → Actions → Runners and select "New self-hosted runner".
 
-```sh
-mkdir ~/actions-runner && cd ~/actions-runner
-curl -o actions-runner-linux-arm64.tar.gz -L https://github.com/actions/runner/releases/download/vX.Y.Z/actions-runner-linux-arm64-X.Y.Z.tar.gz
-tar xzf ./actions-runner-linux-arm64.tar.gz
-```
+Select the appropriate OS and architecture (here: Linux/ARM64).
 
-#### Install dependencies
-
-```sh
-sudo ./bin/installdependencies.sh
-```
-
-### Configure the runner
-
-Use the URL and registration token from the GitHub UI:
-
-```sh
-./config.sh \
-  --url https://github.com/<OWNER>/<REPO_OR_ORG> \
-  --token <TOKEN> \
-  --name rpi
-```
+Follow the instructions that are given on that page until you start the self-hosted runner.
 
 ### Run persistently
 
-Install a `systemd` service that starts automatically at boot:
+In the last step, you have started the runner manually. If you want to start it at boot time, install a `systemd`
+service:
 
 ```sh
 sudo ./svc.sh install
