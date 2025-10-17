@@ -27,7 +27,7 @@ Update you local machine with the latest changes.
 sudo apt update && sudo apt upgrade
 
 # Install required tools
-sudo apt install net-tools zip unzip
+sudo apt install net-tools zip unzip python3.12-venv
 ```
 
 ## pyOCD
@@ -37,19 +37,56 @@ that offers also command-line operation for Continuous Integration (CI).
 
 ### Install pyOCD
 
-> [!NOTE]
-> Ubuntu Server 24.0.3 already comes with Python 3.12.x which is used in the following to describe the set up of
-> `pyocd` in a virtual environment. Please make sure to install an appropriate Python version on your system as well.
+<!-- > [!NOTE] -->
+<!-- > Ubuntu Server 24.0.3 already comes with Python 3.12.x which is used in the following to describe the set up of -->
+<!-- > `pyocd` in a virtual environment. Please make sure to install an appropriate Python version on your system as well. -->
+<!--  -->
+<!-- ```sh -->
+<!-- # Create a virtual environment -->
+<!-- python3 -m venv ~/pyocd_venv -->
+<!--  -->
+<!-- # Activate the virtual environment -->
+<!-- source ~/pyocd_venv/bin/activate -->
+<!--  -->
+<!-- # Install pyocd -->
+<!-- pip3 install pyocd -->
+<!-- ``` -->
+
+Extract the latest `pyocd` release from the GitHub repository and store the download URL in a variable:
 
 ```sh
-# Create a virtual environment
-python -m venv ~/pyocd_venv
+PYOCD=$(curl -s https://api.github.com/repos/pyOCD/pyOCD/releases/latest \
+  | jq -r '.assets[] | select(.name | test("linux-arm64.*\\.zip$")) | .browser_download_url')
+```
 
-# Activate the virtual environment
-source ~/pyocd_venv/bin/activate
+Download the latest `pyocd` release using the variable:
 
-# Install pyocd
-pip3 install pyocd
+```sh
+curl -o pyocd.zip -L $PYOCD
+```
+
+Create a new directory to store `pyocd` and extract the Zip file to it:
+
+```sh
+mkdir pyocd && unzip pyocd.zip -d pyocd
+```
+
+Add the path to the `pyOCD` executable:
+
+```sh
+export PATH=$PATH:~/pyocd
+```
+
+Check if the installation was successful:
+
+```sh
+pyocd --version
+```
+
+The Zip file is no longer needed, remove it:
+
+```sh
+rm -rf pyocd.zip
 ```
 
 ## vcpkg
@@ -59,18 +96,22 @@ to download additional tools.
 
 ### Install vcpkg
 
-Download the latest `vcpkg` release from the GitHub repository:
+Extract the latest `vcpkg` release from the GitHub repository and store the download URL in a variable:
 
 ```sh
 VCPKG=$(curl -s https://api.github.com/repos/microsoft/vcpkg/releases/latest | jq -r '.tarball_url')
-curl -o vcpkg.tar.gz -L $VCPKG.tar.gz
+```
+
+Download the latest `vcpkg` release using the variable:
+
+```sh
+curl -o vcpkg.tar.gz -L $VCPKG
 ```
 
 Create a new directory to store `vcpkg` and extract the tar.gz file to it:
 
 ```sh
-mkdir .vcpkg
-tar xf vcpkg.tar.gz --strip-components=1 -C .vcpkg
+mkdir .vcpkg && tar xf vcpkg.tar.gz --strip-components=1 -C .vcpkg
 ```
 
 Execute the bootstrap script:
@@ -79,27 +120,22 @@ Execute the bootstrap script:
 .vcpkg/bootstrap-vcpkg.sh
 ```
 
-Configure the `VCPKG_ROOT` environment variable:
+Add the path to the `vcpkg` executable:
 
 ```sh
-export VCPKG_ROOT=/path/to/vcpkg
-export PATH=$VCPKG_ROOT:$PATH
-```
-
-> [!NOTE]
-> Setting environment variables using the export command only affects the current shell session. To make this change
-> permanent across sessions, add the export command to your shell's profile script (e.g., `~/.bashrc`).
-
-The tar.gz file is no longer needed, remove it:
-
-```sh
-rm -rf vcpkg.tar.gz
+export PATH=$PATH:~/.vcpkg
 ```
 
 Check if the installation was successful:
 
 ```sh
 vcpkg version
+```
+
+The tar.gz file is no longer needed, remove it:
+
+```sh
+rm -rf vcpkg.tar.gz
 ```
 
 ### Activation
@@ -116,21 +152,52 @@ Then, update the registry:
 vcpkg x-update-registry --all
 ```
 
+> [!NOTE]
+> If `node` is not installed on your machine, it will be downloaded automatically.
+
 Finally, activate `vcpkg`:
 
 ```sh
 vcpkg activate --json=env.json
 ```
 
-> [!NOTE]
-> If `node` is not installed on your machine, it will be downloaded automatically.
-
-Get the path to the CMSIS-Toolbox from the generated `env.json` file"
+Get the path to the CMSIS-Toolbox from the generated `env.json` file:
 
 ```sh
 CMSIS_TOOLBOX=$(jq '.paths.PATH[]' env.json | tr -d '\"')
 export PATH=$CMSIS_TOOLBOX:$PATH
 ```
+
+> [!NOTE]
+> Setting environment variables using the export command only affects the current shell session. To make this change
+> permanent across sessions, add the export command to your shell's profile script (e.g., `~/.bashrc`).
+
+## Make binary paths persistent
+
+Before we add the paths to the `.bashrc` file, check the real path to the CMSIS-Toolbox:
+
+```sh
+echo $CMSIS_TOOLBOX
+```
+
+Make a note of this path.
+
+Open the `.bashrc` file with the `nano` editor:
+
+```sh
+sudo nano ~/.bashrc
+```
+
+In the editor, go to the last line and add:
+
+```sh
+export PATH=$PATH:~/pyocd
+export PATH=$PATH:~/.vcpkg
+export PATH=$PATH:~/.vcpkg/downloads/artifacts/[enter your folder number here]/tools.open.cmsis.pack.cmsis.toolbox/2.11.0/bin
+```
+
+Press **CTRL-o** to save the file, close the editor with **CTRL-x**. This ensure that every new shell has the correct
+path settings available.
 
 ## Install CMSIS-Packs
 
