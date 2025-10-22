@@ -22,8 +22,8 @@ layer:
     - CMSIS_target_header: \"NUCLEO-H563ZI.h\"
 
   packs:
-    - pack: Keil::STM32H5xx_DFP@2.1.0
-    - pack: Keil::NUCLEO-H563ZI_BSP@1.1.0
+    - pack: Keil::STM32H5xx_DFP@2.1.1
+    - pack: Keil::NUCLEO-H563ZI_BSP@1.1.1
     - pack: ARM::CMSIS-Driver_STM32@1.3.0
     - pack: ARM::CMSIS-Driver@2.10.0
     - pack: ARM::CMSIS@6.2.0

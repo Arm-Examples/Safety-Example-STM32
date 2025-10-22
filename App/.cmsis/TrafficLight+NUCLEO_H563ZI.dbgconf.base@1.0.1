@@ -28,13 +28,13 @@ DbgMCU_CR = 0x00000006;
 //   <o.1>  DBG_TIM3_STOP            <i> TIM3 is frozen while CPU is in debug mode
 //   <o.0>  DBG_TIM2_STOP            <i> TIM2 is frozen while CPU is in debug mode
 // </h>
-DbgMCU_APB1L_Fz = 0x00000000;
+DbgMCU_APB1L_Fz = 0x00E019FF;
 
 // <h> Debug MCU APB1H freeze register (DBGMCU_APB1HFZR)
 //                                   <i> Reserved bits must be kept at reset value
 //   <o.5>  DBG_LPTIM2_STOP          <i> LPTIM2 is frozen while CPU is in debug mode
 // </h>
-DbgMCU_APB1H_Fz = 0x00000000;
+DbgMCU_APB1H_Fz = 0x00000020;
 
 // <h> Debug MCU APB2 freeze register (DBGMCU_APB2FZR)
 //                                   <i> Reserved bits must be kept at reset value
@@ -44,7 +44,7 @@ DbgMCU_APB1H_Fz = 0x00000000;
 //   <o.13> DBG_TIM8_STOP            <i> TIM8 is frozen while CPU is in debug mode
 //   <o.11> DBG_TIM1_STOP            <i> TIM1 is frozen while CPU is in debug mode
 // </h>
-DbgMCU_APB2_Fz = 0x00000000;
+DbgMCU_APB2_Fz = 0x00072800;
 
 // <h> Debug MCU APB3 freeze register (DBGMCU_APB3FZR)
 //                                   <i> Reserved bits must be kept at reset value
@@ -57,18 +57,10 @@ DbgMCU_APB2_Fz = 0x00000000;
 //   <o.11> DBG_I2C4_STOP            <i> I2C3 is frozen while CPU is in debug mode
 //   <o.10> DBG_I2C3_STOP            <i> I2C3 is frozen while CPU is in debug mode
 // </h>
-DbgMCU_APB3_Fz = 0x00000000;
+DbgMCU_APB3_Fz = 0x003E0C00;
 
 // <h> Debug MCU AHB1 freeze register (DBGMCU_AHB1FZR)
 //                                   <i> Reserved bits must be kept at reset value
-//   <o.31> DBG_GPDMA2_15_STOP       <i> GPDMA2 channel 15 is frozen while CPU is in debug mode
-//   <o.30> DBG_GPDMA2_14_STOP       <i> GPDMA2 channel 14 is frozen while CPU is in debug mode
-//   <o.29> DBG_GPDMA2_13_STOP       <i> GPDMA2 channel 13 is frozen while CPU is in debug mode
-//   <o.28> DBG_GPDMA2_12_STOP       <i> GPDMA2 channel 12 is frozen while CPU is in debug mode
-//   <o.27> DBG_GPDMA2_11_STOP       <i> GPDMA2 channel 11 is frozen while CPU is in debug mode
-//   <o.26> DBG_GPDMA2_10_STOP       <i> GPDMA2 channel 10 is frozen while CPU is in debug mode
-//   <o.25> DBG_GPDMA2_9_STOP        <i> GPDMA2 channel 9 is frozen while CPU is in debug mode
-//   <o.24> DBG_GPDMA2_8_STOP        <i> GPDMA2 channel 8 is frozen while CPU is in debug mode
 //   <o.23> DBG_GPDMA2_7_STOP        <i> GPDMA2 channel 7 is frozen while CPU is in debug mode
 //   <o.22> DBG_GPDMA2_6_STOP        <i> GPDMA2 channel 6 is frozen while CPU is in debug mode
 //   <o.21> DBG_GPDMA2_5_STOP        <i> GPDMA2 channel 5 is frozen while CPU is in debug mode
@@ -77,14 +69,6 @@ DbgMCU_APB3_Fz = 0x00000000;
 //   <o.18> DBG_GPDMA2_2_STOP        <i> GPDMA2 channel 2 is frozen while CPU is in debug mode
 //   <o.17> DBG_GPDMA2_1_STOP        <i> GPDMA2 channel 1 is frozen while CPU is in debug mode
 //   <o.16> DBG_GPDMA2_0_STOP        <i> GPDMA2 channel 0 is frozen while CPU is in debug mode
-//   <o.15> DBG_GPDMA1_15_STOP       <i> GPDMA1 channel 15 is frozen while CPU is in debug mode
-//   <o.14> DBG_GPDMA1_14_STOP       <i> GPDMA1 channel 14 is frozen while CPU is in debug mode
-//   <o.13> DBG_GPDMA1_13_STOP       <i> GPDMA1 channel 13 is frozen while CPU is in debug mode
-//   <o.12> DBG_GPDMA1_12_STOP       <i> GPDMA1 channel 12 is frozen while CPU is in debug mode
-//   <o.11> DBG_GPDMA1_11_STOP       <i> GPDMA1 channel 11 is frozen while CPU is in debug mode
-//   <o.10> DBG_GPDMA1_10_STOP       <i> GPDMA1 channel 10 is frozen while CPU is in debug mode
-//   <o.9>  DBG_GPDMA1_9_STOP        <i> GPDMA1 channel 9 is frozen while CPU is in debug mode
-//   <o.8>  DBG_GPDMA1_8_STOP        <i> GPDMA1 channel 8 is frozen while CPU is in debug mode
 //   <o.7>  DBG_GPDMA1_7_STOP        <i> GPDMA1 channel 7 is frozen while CPU is in debug mode
 //   <o.6>  DBG_GPDMA1_6_STOP        <i> GPDMA1 channel 6 is frozen while CPU is in debug mode
 //   <o.5>  DBG_GPDMA1_5_STOP        <i> GPDMA1 channel 5 is frozen while CPU is in debug mode
@@ -94,7 +78,7 @@ DbgMCU_APB3_Fz = 0x00000000;
 //   <o.1>  DBG_GPDMA1_1_STOP        <i> GPDMA1 channel 1 is frozen while CPU is in debug mode
 //   <o.0>  DBG_GPDMA1_0_STOP        <i> GPDMA1 channel 0 is frozen while CPU is in debug mode
 // </h>
-DbgMCU_AHB1_Fz = 0x00000000;
+DbgMCU_AHB1_Fz = 0x00FF00FF;
 
 // <h> TPIU Pin Routing
 //   <o0> TRACECLK
