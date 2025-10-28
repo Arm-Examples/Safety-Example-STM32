@@ -61,7 +61,7 @@ This is a list of the relevant files and directories.
 
 | File/Directory                          | Content |
 |---                                      |--- |
-| [vcpkg-configuration.json](./vcpkg-configuration.json) | Defines the tools that the [Arm Tools Environment Manager](https://marketplace.visualstudio.com/items?itemName=Arm.environment-manager) installs in VS Code. |
+| [vcpkg-configuration.json](./vcpkg-configuration.json) | Lists all tools that are installed with vcpkg. |
 | [.github/workflows](./.github/workflows)  | Contains setup for the CI Build and HiL test workflows. |
 | [App](./App) | Contains the safety example. |
 
