@@ -21,7 +21,7 @@ This repository contains examples for [Keil Studio](https://www.keil.arm.com/) t
 
 ## Examples description
 
-The examples can be explored using the [Keil MDK Community edition](https://www.keil.arm.com/keil-mdk/#mdk-v6-editions)
+The examples can be explored using the [Keil MDK-Community edition](https://www.keil.arm.com/mdk-community/)
 that is free-to-use for training and evaluation. For evaluation purposes, the open-source variant of
 [Keil RTX](https://developer.arm.com/Tools%20and%20Software/Keil%20MDK/RTX5%20RTOS) is used which offers the similar
 features as the commercial, safety-certified
