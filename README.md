@@ -49,7 +49,7 @@ The underlying build system of [Keil Studio](https://www.keil.arm.com/) uses the
 - Tool installation based on a single [`vcpkg-configuration.json`](./vcpkg-configuration.json) file for desktop and CI environments.
 - CMSIS solution files (`*.csolution.yml`) that enable seamless builds in CI, for example using GitHub actions.
 
-| <div style="width:150px"> CI Workflow </div>    | Description |
+| CI Workflow    | Description |
 |---                                              |--- |
 | [Build_NUCLEO_H563ZI_Release](./.github/workflows/Build_NUCLEO_H563ZI_Release.yml) | Builds the example binary on a GitHub hosted runner and save it as artifact. |
 | [Run_NUCLEO_H563ZI_Release](./.github/workflows/Run_NUCLEO_H563ZI_Release.yml) | Downloads the binary artifact, flash it on a target board and starts the application. |
