@@ -52,7 +52,7 @@ The underlying build system of [Keil Studio](https://www.keil.arm.com/) uses the
 | CI Workflow    | Description |
 |---                                              |--- |
 | [Build_NUCLEO_H563ZI_Release](./.github/workflows/Build_NUCLEO_H563ZI_Release.yml) | Builds the example binary on a GitHub hosted runner and saves it as an artifact. |
-| [Run_NUCLEO_H563ZI_Release](./.github/workflows/Run_NUCLEO_H563ZI_Release.yml) | Downloads the binary artifact, flash it on a target board and starts the application. |
+| [Run_NUCLEO_H563ZI_Release](./.github/workflows/Run_NUCLEO_H563ZI_Release.yml) | Downloads the binary artifact, flashes it on a target board and starts the application. |
 
 
 ## Files and Directories
