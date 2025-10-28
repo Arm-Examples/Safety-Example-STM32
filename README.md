@@ -1,5 +1,10 @@
 # Safety Example for STMicroelectronics NUCLEO-H563ZI
 
+[![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
+[![NUCLEO_H563ZI build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/Safety-Example-STM32/Build_NUCLEO_H563ZI_Release.yml?logo=arm&logoColor=0091bd&label=NUCLEO_H563ZI%20release%20build)](https://github.com/Arm-Examples/Safety-Example-STM32/tree/main/.github/workflows/Build_NUCLEO_H563ZI_Release.yml)
+[![NUCLEO_H563ZI run](https://img.shields.io/github/actions/workflow/status/Arm-Examples/Safety-Example-STM32/Run_NUCLEO_H563ZI_Release.yml?logo=arm&logoColor=0091bd&label=NUCLEO_H563ZI%20release%20run)](https://github.com/Arm-Examples/Safety-Example-STM32/tree/main/.github/workflows/Run_NUCLEO_H563ZI_Release.yml)
+
+
 This repository contains examples for [Keil Studio](https://www.keil.arm.com/) that run on the [STMicroelectronics NUCLEO-H563ZI](https://www.keil.arm.com/boards/stmicroelectronics-nucleo-h563zi-revc-4a2aad3/features/).
 
 ## Quick Start
@@ -14,26 +19,20 @@ This repository contains examples for [Keil Studio](https://www.keil.arm.com/) t
    [Action buttons](https://github.com/ARM-software/vscode-cmsis-csolution?tab=readme-ov-file#action-buttons) to build,
    load and debug the example on the hardware.
 
-## Examples
+## Examples description
 
-The examples can be explored using the [Keil MDK Community edition](https://www.keil.arm.com/keil-mdk/#mdk-v6-editions)
+The examples can be explored using the [Keil MDK-Community edition](https://www.keil.arm.com/mdk-community/)
 that is free-to-use for training and evaluation. For evaluation purposes, the open-source variant of
 [Keil RTX](https://developer.arm.com/Tools%20and%20Software/Keil%20MDK/RTX5%20RTOS) is used which offers the similar
 features as the commercial, safety-certified
 [FuSa RTS](https://developer.arm.com/Tools%20and%20Software/Keil%20MDK/FuSa%20Run-Time%20System). FuSa RTS is part of
 the [Keil MDK Professional edition](https://www.keil.arm.com/keil-mdk/#mdk-v6-editions).
 
-### App
 
-This is a practical demonstration of Arm FuSa RTS process isolation, using a simple traffic light controller to
-showcase safety classes, MPU zones, and fault handling on Cortex-M devices.
+| Example name                              | Description   |
+|---                                        |---            |
+| [TrafficLight](./App/TrafficLight.csolution.yml)                  | This is a practical demonstration of Arm FuSa RTS process isolation, using a simple traffic light controller to showcase safety classes, MPU zones, and fault handling on Cortex-M devices. It contains the [App/TrafficLight.cproject.yml](./App/TrafficLight.cproject.yml) which implements the safety-critical application part using functional safety features of Keil RTX. ![Safety Example](./Doc/traffic_light.png "Safety Example") |
 
-The [TrafficLight.csolution.yml](./App/TrafficLight.csolution.yml) safety example contains:
-
-- [App/TrafficLight.cproject.yml](./App/TrafficLight.cproject.yml)
-  implements the safety-critical application part using functional safety features of Keil RTX.
-
-![Safety Example](./Doc/traffic_light.png "Safety Example")
 
 ## Git Workflow
 
@@ -42,15 +41,30 @@ This repository contains multiple *csolution projects* and is configured as a si
 - [vcpkg-configuration.json](./vcpkg-configuration.json) is in the workspace root directory and installs the tools for all *csolution projects*.
 - [.gitignore](./.gitignore) excludes files that contain user specific setup, for example `.vscode` and `*.cbuild*.yml`.
 
+
+## Continuous Integration (CI)
+
+The underlying build system of [Keil Studio](https://www.keil.arm.com/) uses the [CMSIS-Toolbox](https://open-cmsis-pack.github.io/cmsis-toolbox/) and CMake. [CI](https://en.wikipedia.org/wiki/Continuous_integration) is effectively supported with:
+
+- Tool installation based on a single [`vcpkg-configuration.json`](./vcpkg-configuration.json) file for desktop and CI environments.
+- CMSIS solution files (`*.csolution.yml`) that enable seamless builds in CI, for example using GitHub actions.
+
+| CI Workflow    | Description |
+|---                                              |--- |
+| [Build_NUCLEO_H563ZI_Release](./.github/workflows/Build_NUCLEO_H563ZI_Release.yml) | Builds the example binary on a GitHub hosted runner and saves it as an artifact. |
+| [Run_NUCLEO_H563ZI_Release](./.github/workflows/Run_NUCLEO_H563ZI_Release.yml) | Downloads the binary artifact, flashes it on a target board and starts the application. |
+
+
 ## Files and Directories
 
 This is a list of the relevant files and directories.
 
-File/Directory                            | Content
-:-----------------------------------------|:---------------------------------------------------------
-[vcpkg-configuration.json](./vcpkg-configuration.json) | Defines the tools that the [Arm Tools Environment Manager](https://marketplace.visualstudio.com/items?itemName=Arm.environment-manager) installs in VS Code.
-[App](./App) | Contains the safety example.
-[.github/workflows](./.github/workflows)  | Contains setup for the CI Build and HiL test workflows.
+| File/Directory                          | Content |
+|---                                      |--- |
+| [vcpkg-configuration.json](./vcpkg-configuration.json) | Lists all tools that are installed with vcpkg. |
+| [.github/workflows](./.github/workflows)  | Contains setup for the CI Build and HiL test workflows. |
+| [App](./App) | Contains the safety example. |
+
 
 ## Issues or Questions
 
