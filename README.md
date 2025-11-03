@@ -68,4 +68,4 @@ This is a list of the relevant files and directories.
 
 ## Issues or Questions
 
-Use the [**Issues**](./issues) tab to raise questions or issues.
+Use the [**Issues**](https://github.com/Arm-Examples/Safety-Example-STM32/issues) tab to raise questions or issues.
