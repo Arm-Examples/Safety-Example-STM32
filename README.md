@@ -11,7 +11,7 @@ This repository contains examples for [Keil Studio](https://www.keil.arm.com/) t
 
 1. Install [Keil Studio for VS Code](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) from the
    VS Code marketplace.
-2. Clone this Git repository into a VS Code workspace.
+2. In VS Code, either clone this Git repository or (if downloaded as ZIP file) open the top-level folder.
 3. Open the [CMSIS View](https://mdk-packs.github.io/vscode-cmsis-solution-docs/userinterface.html#2-main-area-of-the-cmsis-view)
    in VS Code and use the ... menu to choose an example via *Select Active Solution from workspace*.
 4. The related tools and software packs are downloaded and installed. Review progress with *View - Output - CMSIS Solution*.
