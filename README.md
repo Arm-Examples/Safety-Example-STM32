@@ -1,9 +1,8 @@
-# Safety Example for STMicroelectronics NUCLEO-H563ZI
-
-[![License](https://img.shields.io/github/license/Arm-Examples/Safety-Example-STM32?label)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-green?label=License)](https://github.com/Arm-Examples/Safety-Example-STM32/blob/main/LICENSE-Apache-2.0)
 [![NUCLEO_H563ZI build](https://img.shields.io/github/actions/workflow/status/Arm-Examples/Safety-Example-STM32/Build_NUCLEO_H563ZI_Release.yml?logo=arm&logoColor=0091bd&label=NUCLEO_H563ZI%20release%20build)](https://github.com/Arm-Examples/Safety-Example-STM32/tree/main/.github/workflows/Build_NUCLEO_H563ZI_Release.yml)
 [![NUCLEO_H563ZI run](https://img.shields.io/github/actions/workflow/status/Arm-Examples/Safety-Example-STM32/Run_NUCLEO_H563ZI_Release.yml?logo=arm&logoColor=0091bd&label=NUCLEO_H563ZI%20release%20run)](https://github.com/Arm-Examples/Safety-Example-STM32/tree/main/.github/workflows/Run_NUCLEO_H563ZI_Release.yml)
 
+# Safety Example for STMicroelectronics NUCLEO-H563ZI
 
 This repository contains examples for [Keil Studio](https://www.keil.arm.com/) that run on the [STMicroelectronics NUCLEO-H563ZI](https://www.keil.arm.com/boards/stmicroelectronics-nucleo-h563zi-revc-4a2aad3/features/).
 
@@ -51,8 +50,8 @@ The underlying build system of [Keil Studio](https://www.keil.arm.com/) uses the
 
 | CI Workflow    | Description |
 |---                                              |--- |
-| [Build_NUCLEO_H563ZI_Release](./.github/workflows/Build_NUCLEO_H563ZI_Release.yml) | Builds the example binary on a GitHub hosted runner and saves it as an artifact. |
-| [Run_NUCLEO_H563ZI_Release](./.github/workflows/Run_NUCLEO_H563ZI_Release.yml) | Downloads the binary artifact, flashes it on a target board and starts the application. |
+| [Build_NUCLEO_H563ZI_Release](./.github/workflows/Build_NUCLEO_H563ZI_Release.yml) | Builds the example binary on a GitHub hosted runner and saves it together with the debug configuration as an artifact. |
+| [Run_NUCLEO_H563ZI_Release](./.github/workflows/Run_NUCLEO_H563ZI_Release.yml) | Downloads the artifact, flashes the application on a target board and starts it. |
 
 
 ## Files and Directories

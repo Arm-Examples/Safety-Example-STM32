@@ -30,11 +30,11 @@ jobs:
     - name: Download Build Artifact
       uses: dawidd6/action-download-artifact@v11
       with:
-        workflow: Build_NUCLEO_H563ZI_Release.yaml
+        workflow: Build_NUCLEO_H563ZI_Release.yml
         name: NUCLEO_H563ZI@Release
         path: ./artifact
 
     - name: Flash-Download-Test for NUCLEO_H563ZI@Release
       working-directory: ./artifact/out
       run: | 
-         pyocd load --probe cmsisdap: --cbuild-run TrafficLight+NUCLEO_H563ZI.cbuild-run.yml
+        pyocd load --probe stlink: --cbuild-run TrafficLight+NUCLEO_H563ZI.cbuild-run.yml
