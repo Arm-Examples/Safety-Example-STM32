@@ -37,4 +37,4 @@ jobs:
     - name: Flash-Download-Test for NUCLEO_H563ZI@Release
       working-directory: ./artifact/out
       run: | 
-        pyocd load --probe stlink: --cbuild-run TrafficLight+NUCLEO_H563ZI.cbuild-run.yml
+        pyocd load --cbuild-run TrafficLight+NUCLEO_H563ZI.cbuild-run.yml
