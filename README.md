@@ -15,7 +15,7 @@ This repository contains examples for [Keil Studio](https://www.keil.arm.com/) t
    in VS Code and use the ... menu to choose an example via *Select Active Solution from workspace*.
 4. The related tools and software packs are downloaded and installed. Review progress with *View - Output - CMSIS Solution*.
 5. In the CMSIS view, use the
-   [Action buttons](https://github.com/ARM-software/vscode-cmsis-csolution?tab=readme-ov-file#action-buttons) to build,
+   [Action buttons](https://github.com/Open-CMSIS-Pack/vscode-cmsis-solution#action-buttons) to build,
    load and debug the example on the hardware.
 
 ## Examples description
